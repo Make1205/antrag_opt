@@ -28,15 +28,15 @@ SHA-256:
 The default counter is RDTSC. `USE_RDPMC` will not be enabled.
 `print_results` computes adjacent timestamp differences, subtracts measured counter
 overhead and reports a median. In particular, 10001 input timestamps yield 10000
-intervals. Benchmark-driver integration remains pending the parameter review below.
+intervals. The driver passes 10002 timestamps for 10001 operations, so the unchanged printer
+uses 10001 intervals. Timings are divided by 1000 for thousand-cycle output.
 
-## Inventory and paper comparison
+## Parameters and paper sizes
 
-All ten active parameter sets were evaluated using the unchanged
-`scripts/gen_headers.sage` with SageMath 10.6, in separate temporary directories.
-The generated `ANTRAG_D`, `ANTRAG_Q`, `ANTRAG_PK_SIZE`, `ANTRAG_SK_SIZE` and
-`ANTRAG_SIG_SIZE` values are recorded in `inventory.json`.
-Commented-out candidate parameters are excluded.
+The ten active parameter sets were evaluated with the unchanged
+`scripts/gen_headers.sage` and SageMath 10.6. Generated headers are stored in
+`params/<set>/`; `params.sha256.json` verifies them before each run. No coefficients,
+moduli or parameter values were edited. Commented-out candidates are excluded.
 
 | Set | n | q | pk bytes | sk bytes | sig bytes |
 |---|---:|---:|---:|---:|---:|
@@ -51,70 +51,133 @@ Commented-out candidate parameters are excluded.
 | 5f | 1024 | 12289 | 1792 | 118784 | 1282 |
 | 5s | 1024 | 5119 | 1664 | 118784 | 1244 |
 
-Signatures use a fixed-size padded encoding, with `encode_sig` returning failure
-when the compressed vector exceeds its allocated buffer. The successful serialized
-size is the table value, so its average length is identical. `tests/codec_test.c`
-retries signing until encoding succeeds; its subsequent 10000-signature loop
-measures encoding rejection rate. A future byte-API timing driver must handle
-encoding failure explicitly. SUPERCOP's wrapper currently ignores that return value.
+All successful signature encodings have the fixed size shown above.
+`encode_sig` can reject a vector that does not fit. The driver follows the
+repository codec test and repeats signing until encoding succeeds. Key material,
+parameter values, sampling and RNG byte generation remain unchanged.
 
-The paper's 512 row has q=3329, pk=768 and sig=591. The repository's 1s
-uses q=3583, pk=768 and sig=592. Its 1f uses q=12289, pk=896 and sig=642.
-The paper's 768 row has q=3329, pk=1152 and sig=883. The repository's 3s
-matches n, q and pk, but sig=908 (25 bytes longer).
-The paper's 1024 row has q=3329, pk=1536 and sig=1176. The repository has
-5s with q=5119, pk=1664 and sig=1244, and 5f with q=12289, pk=1792 and sig=1282.
-No active 512 or 1024 parameter set uses q=3329.
+The user accepted the following discrepancies before benchmark implementation:
 
-This triggers the requested parameter/size review stop. No algorithm, modulus,
-dimension, sampler, codec or RNG has been changed. Timing and the one-command
-benchmark are deferred until the user resolves this discrepancy. No performance
-numbers have been measured by the new benchmark.
+| Set | Repository n/q, pk/sig | Paper n/q, pk/sig |
+|---|---|---|
+| 1s | 512/3583, 768/592 | 512/3329, 768/591 |
+| 3s | 768/3329, 1152/908 | 768/3329, 1152/883 |
+| 5s | 1024/5119, 1664/1244 | 1024/3329, 1536/1176 |
 
-## Implementation paths and API
+Only 3s has q=3329. The q=12289 sets are 1f and 5f. All ten sets are measured.
+The paper column uses the user's Table 2 / Table 3(b) numbers; other rows use `--`.
+An earlier inventory-only SUMMARY is retained as a historical checkpoint.
 
-`falcon/config.h` enables `FALCON_AVX2=1` and `FALCON_FMA=1` directly.
-`falcon/fft.c` contains AVX2 vector arithmetic guarded by `FALCON_AVX2`.
-`falcon/rng.c` also has an AVX2 PRNG path. FMA intrinsics are selected through
-`FMADD` and `FMSUB` in `falcon/inner.h` when both macros are enabled.
-These are repository paths, not new vector implementations.
-The unconditional definitions in config.h mean command-line `-D...=0` alone
-cannot reliably select ref. A build-time configuration solution is still pending;
-none has been applied. Ref/AVX2 comparison has not been run.
+## Build configurations
 
-`falcon/fpr.h` defines `fpr` as a struct containing a native C `double`.
-The active square root uses `sqrt` from libm. On this x86-64 host this uses
-hardware floating point. The configuration comments about `FALCON_FPEMU`
-do not establish a working software-emulated Antrag implementation.
+The original `falcon/config.h` enables `FALCON_AVX2=1`, `FALCON_FMA=1` and
+`FALCON_KG_CHACHA20=1`. AVX2 uses that configuration unchanged. The external
+`bench/config_ref.h` first includes the original configuration and then changes
+only the AVX2 and FMA macros to zero. GCC preincludes this header for ref.
+Header guards prevent later inclusion from overriding these selections.
+Algorithm source files are byte-identical staged copies; no tracked files outside
+`bench/` are edited. No source compatibility patches were necessary.
 
-`decode_sk` restores four integer vectors and fourteen double vectors, including
-precomputed key material. The byte secret key is already a serialized expanded
-key. The in-memory `secret_key` is accepted by `sign`, so an additional
-expanded-key timing can exclude `decode_sk`. Byte Sign must include decoding,
-signing and successful signature encoding; byte Verify must include public key
-and signature decoding and verification. Messages will have 32 bytes.
+Both use system `/usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11` and
+link `-lm -lgmp`. `-DNDEBUG` matches the repository build. Ref adds
+`-fno-tree-vectorize -fno-tree-slp-vectorize` to disable automatic vectorization
+and compiles out the upstream SIMD intrinsics. Portable scalar C operations
+still compile to the host's native scalar floating-point instructions.
+Both use the repository's native `double` implementation and libm `sqrt`.
+The commented software-emulation options do not provide a separate validated
+Antrag backend. AVX2/FMA covers vector polynomial arithmetic and the PRNG.
 
-## Correctness and current scope
+LTO and debug flags from the original Makefile are omitted; neither is required
+for correctness. The explicit test links include all algorithm objects because,
+without LTO, the original poly-test link misses references to the NTT helpers.
+No source edits were needed for this link correction. Inherited conda compiler
+search variables are removed for subprocesses, and inherited CFLAGS/LDFLAGS
+are not used. Every exact command is retained in a build log.
 
-No KAT fixtures or KAT runner were found. Existing tests cover NTT, FFT,
-polynomial arithmetic, RNS, key/signature codec round trips and signature verification.
-The earlier cloud setup passed these tests for 1f and reported 200/200 correct
-signatures in the main program. Those checks used the repository default SIMD
-configuration and do not constitute ref/AVX2 cross-validation.
-The fixed-seed 100-case cross-build test remains pending. `seed_rng` is time-based;
-a test driver can initialize the existing global PRNG through its unchanged SHAKE
-initialization API rather than replacing the algorithm's random-byte functions.
+## Timing boundaries
 
-The four vendored timing utilities are present; the 10001-iteration driver,
-offline run.sh, build variants and performance CSV are pending parameter review.
-No compilation compatibility edits have been made.
+Messages contain 32 bytes. Each operation runs 10001 times. The timestamp at
+the start of each operation and one final timestamp give 10001 intervals to
+the unchanged Dilithium `print_results` function. Its overhead subtraction and
+median implementation are used directly. No driver-specific cycle estimator
+or timer replacement is used. Values are RDTSC ticks / 1000.
+The loop dispatch and timestamp-loop overhead are included. Inputs are warm;
+Verify repeatedly checks the same valid message/signature. No LTO is used,
+so calls to the separately compiled algorithm cannot be eliminated by whole-program
+optimization. Timing is pinned to one allowed logical CPU; no privileged
+frequency or scheduler changes are attempted.
 
-Fresh 3s validation passed with system `/usr/bin/gcc` and `LANG=C`: NTT, FFT, polynomial, RNS and codec tests, including 10000 signing attempts. Exit status was zero. This used the default AVX2/FMA configuration.
+* KeyGen generates the key and encodes both sk and pk to bytes.
+* Sign decodes the byte sk, signs and encodes the signature, including retries
+  after encoding overflow.
+* Verify decodes the byte pk and byte signature and verifies the signature.
+* Expanded-key Sign uses the in-memory secret key and includes signature encoding
+  and encoding retries; it excludes byte-sk decoding.
 
-The self-test command was `make clean`, `make gen3s`, then `make -j4 CC=/usr/bin/gcc test-ntt test-poly test-rns test-codec` after activating the existing Sage environment. This regenerated only ignored build outputs.
+The byte sk already serializes four integer vectors and fourteen precomputed
+double vectors. `decode_sk` restores expanded material; it does not recompute
+key generation. This is the repository's byte-key API semantics. Encoding retries
+are necessary because SUPERCOP's wrapper ignores encoding failure, whereas the
+repository codec test handles it. The driver checks failures explicitly.
 
-Actual self-test compilation command (inherited conda flags included; this is not the final benchmark flag policy):
+## Correctness
 
-```text
-/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c tests/ntt_test.c -o build/tests/ntt_test.o
-```
+No upstream KAT runner or expected-output fixtures were found. Both configurations
+run the existing NTT, polynomial/FFT and RNS test programs for every parameter set.
+For each set/build, the driver initializes the existing global PRNG through
+`inner_shake256_*` and `Zf(prng_init)` using an 8-byte seed: little-endian
+32-bit domain followed by little-endian 32-bit case index. Domain 1 generates
+100 distinct key/signature cases; messages are byte j = (case+j) mod 256.
+The original randombytes/get64/get8 functions and PRNG implementations are used.
+No RNG function is replaced, and the time-based `seed_rng` is not invoked.
+
+Each generated signature is self-verified and then verified by the other build.
+The receiver also signs with the sender's serialized sk and checks that signature,
+and rejects the original signature with a changed message. Each build verifies
+100 foreign signatures and 100 signatures from foreign serialized keys per set.
+Python compares all 100 pk/sk/signature byte records and reports exact equality
+counts. Correctness must finish for all sets before any timing begins.
+
+FMA changes floating-point rounding, so serialized expanded keys and signatures
+can differ for the same seed. Byte differences are recorded, rather than hidden.
+Cross-verification is the required interoperability check in that case. The
+original Falcon configuration itself documents this FMA rounding distinction.
+Domains 2, 3 and 4 separate foreign-key tests, timings and length statistics.
+Domain 3 seeds each timing process once; RNG state then advances normally.
+
+## Unpadded length statistics
+
+For each of 1s/3s/5s and each build, domain 4 generates one key followed by
+10000 successfully encoded signatures on a 32-byte zero message. Every signature
+is verified. Failed encodings are retried and counted separately; the mean is
+conditional on successful encoding under the repository's fixed-size format.
+The count of signing attempts and encoding rejections is retained in lengths.json.
+
+The driver parses the actual emitted coefficient bitstream to find the bit after
+the final unary terminator. It rounds that bit count up to bytes and adds SALT_BYTES.
+It checks the result independently against the decoded coefficient formula
+`sum(SIG_SMALL_BITS + 2 + (abs(centered_coefficient) >> SIG_SMALL_BITS))`.
+Whole padding bytes are excluded; the final partial data byte and the salt are
+included. Trailing zero data bytes are never stripped heuristically.
+This is a length statistic, not a new accepted wire format. The mean is the same
+for fixed-size encodings themselves: exactly ANTRAG_SIG_SIZE bytes.
+
+Removing padding quantifies the fixed-buffer overhead. It does not reconcile
+the different q values for 1s/5s, or establish the paper's exact sampling and
+encoding conventions. Numerical means and residual differences are in each
+completed run's SUMMARY.
+
+## Running and evidence
+
+`bash bench/run.sh` performs offline build, correctness and timing in that order.
+Requirements: Linux x86-64 with AVX2/FMA, Bash, Python 3.8+, Git, system GCC,
+and installed GMP headers/library. No sudo, network or Sage is used by run.sh.
+All commands inherit LANG=C and LC_ALL=C. Full instructions are in README.md.
+
+metadata.json records the code commit, initial worktree status, source and harness
+SHA-256 values, CPU, compiler, affinity, flags and all parameter sizes. Worktree
+status distinguishes runs made while preparing the benchmark. The underlying
+algorithm source remains identical to baseline ccca2c6a627973827abc8479f1c32ebf6926b15f.
+The ignored work directory stores binaries and cross-test vectors; logs, JSON,
+CSV and SUMMARY are retained. No performance numbers from cloud execution should
+be used in the paper.
