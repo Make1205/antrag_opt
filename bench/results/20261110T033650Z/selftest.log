@@ -1,0 +1,56 @@
+rm -rf build gen supercop-build
+rm -f ./main
+rm -f tests/ntt_test
+mkdir -p gen
+sage scripts/gen_headers.sage 3s
+D=768, q=3329, M=2304, ext=2
+mkdir -p build
+mkdir -p build/antrag
+mkdir -p build/tests
+mkdir -p build/falcon
+mkdir -p build/ntru
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c tests/ntt_test.c -o build/tests/ntt_test.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c tests/poly_test.c -o build/tests/poly_test.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/poly.c -o build/antrag/poly.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c falcon/fft.c -o build/falcon/fft.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c tests/rns_test.c -o build/tests/rns_test.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c ntru/rns.c -o build/ntru/rns.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c ntru/ipoly.c -o build/ntru/ipoly.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c tests/codec_test.c -o build/tests/codec_test.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/cpucycles.c -o build/antrag/cpucycles.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/fips202.c -o build/antrag/fips202.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/keygen.c -o build/antrag/keygen.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/normaldist.c -o build/antrag/normaldist.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/randombytes.c -o build/antrag/randombytes.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/samplerZ.c -o build/antrag/samplerZ.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c antrag/sign.c -o build/antrag/sign.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c falcon/ntt.c -o build/falcon/ntt.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c falcon/rng.c -o build/falcon/rng.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c falcon/shake.c -o build/falcon/shake.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c ntru/cpoly.c -o build/ntru/cpoly.o
+/usr/bin/gcc -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/.tools/sage/include -Wall -Wextra -Wshadow -Wundef -DNDEBUG -g -march=native -O3 -flto -MMD -c ntru/ntru.c -o build/ntru/ntru.o
+/usr/bin/gcc -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/.tools/sage/lib -Wl,-rpath-link,/workspace/.tools/sage/lib -L/workspace/.tools/sage/lib -flto build/tests/ntt_test.o -lm -lgmp -o build/tests/ntt_test
+/usr/bin/gcc -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/.tools/sage/lib -Wl,-rpath-link,/workspace/.tools/sage/lib -L/workspace/.tools/sage/lib -flto build/tests/poly_test.o build/antrag/poly.o build/falcon/fft.o -lm -lgmp -o build/tests/poly_test
+/usr/bin/gcc -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/.tools/sage/lib -Wl,-rpath-link,/workspace/.tools/sage/lib -L/workspace/.tools/sage/lib -flto build/tests/rns_test.o build/ntru/rns.o build/ntru/ipoly.o -lm -lgmp -o build/tests/rns_test
+/usr/bin/gcc -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/.tools/sage/lib -Wl,-rpath-link,/workspace/.tools/sage/lib -L/workspace/.tools/sage/lib -flto build/tests/codec_test.o build/antrag/cpucycles.o build/antrag/fips202.o build/antrag/keygen.o build/antrag/normaldist.o build/antrag/poly.o build/antrag/randombytes.o build/antrag/samplerZ.o build/antrag/sign.o build/falcon/fft.o build/falcon/ntt.o build/falcon/rng.o build/falcon/shake.o build/ntru/cpoly.o build/ntru/ipoly.o build/ntru/ntru.o build/ntru/rns.o -lm -lgmp -o build/tests/codec_test
+build/tests/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+build/tests/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+build/tests/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+build/tests/codec_test
+Secret key round trips.
+Public key round trips.
+Generating signature...
+Signature round trips.
+Signature verification succeeds.
+Testing rejection rate... (SIG_VECTOR_SIZE = 876)
+Percentage of rejections: 1.53%
