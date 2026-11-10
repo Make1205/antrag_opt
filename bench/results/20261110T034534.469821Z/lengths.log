@@ -1,0 +1,18 @@
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/driver length
+META 512 3583 768 59392 592
+LENGTH 5868078 10000 577 592 10136
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/driver length
+META 512 3583 768 59392 592
+LENGTH 5868078 10000 577 592 10136
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/driver length
+META 768 3329 1152 89088 908
+LENGTH 8994041 10000 885 908 10159
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/driver length
+META 768 3329 1152 89088 908
+LENGTH 8994041 10000 885 908 10159
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/driver length
+META 1024 5119 1664 118784 1244
+LENGTH 12384003 10000 1230 1244 10031
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/driver length
+META 1024 5119 1664 118784 1244
+LENGTH 12384003 10000 1230 1244 10031

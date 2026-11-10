@@ -65,6 +65,16 @@ def build(row, variant, out):
         call([stage/(name+'_test')], stage, out/'selftests.log')
     return stage / 'driver'
 
+def length_comparison(lengths):
+    fixed = {r['parameter_set']: r['sig'] for r in SETS}
+    paper = {'1s': 591, '3s': 883, '5s': 1176}
+    s = '\nPadding and remaining difference from the paper, in bytes:\n\n'
+    s += '| Set | Build | Fixed minus mean (padding) | Mean minus paper sig |\n|---|---|---:|---:|\n'
+    for r in lengths:
+        s += '| %s | %s | %.4f | %+.4f |\n' % (r['set'], r['build'],
+                fixed[r['set']] - r['mean'], r['mean'] - paper[r['set']])
+    return s
+
 def main():
     if sys.version_info < (3,8):
         raise RuntimeError('Python 3.8+ required')
@@ -86,7 +96,8 @@ def main():
     out = BENCH/'results'/stamp
     out.mkdir(parents=True)
     print('Results:',out,flush=True)
-    metadata = {'commit':call(['git','rev-parse','HEAD']).strip(),
+    metadata = {'run_context':os.environ.get('BENCH_CONTEXT', 'local'),
+                'commit':call(['git','rev-parse','HEAD']).strip(),
                 'status':call(['git','status','--porcelain']).strip(),
                 'cpu':re.search(r'^model name\s*:\s*(.*)$',cpuinfo,re.M)[1],
                 'gcc':call([GCC,'--version']).splitlines()[0], 'cpu_affinity':cpu,
@@ -159,14 +170,16 @@ def main():
         fields=['parameter_set','n','q','pk','sk','sig','build','operation','iterations','median_cycles','kcycles']
         w=csv.DictWriter(f,fieldnames=fields); w.writeheader(); w.writerows(results)
     lookup={(r['parameter_set'],r['build'],r['operation']):r['kcycles'] for r in results}
-    s='# Antrag cloud benchmark\n\nCloud numbers validate the workflow only; exclude them from paper results.\n\n'
+    s='# Antrag benchmark\n\nRun context: '+metadata['run_context']+'.\n\n'
+    if metadata['run_context'] == 'cloud':
+        s+='Cloud numbers validate the workflow only; exclude them from paper results.\n\n'
     s+='Code commit: `'+metadata['commit']+'`.\n\n'
     s+='CPU: '+metadata['cpu']+'; pinned logical CPU '+str(cpu)+'.\n\nGCC: '+metadata['gcc']+'.\n\n'
     for v in ('ref','avx2'):
         s+=v+' flags: `'+ ' '.join(metadata['flags'][v])+'`; link: `-lm -lgmp`.\n\n'
     s+='Native hardware double/libm in both builds. Ref disables explicit SIMD and compiler loop/SLP vectorization. AVX2 enables upstream AVX2/FMA.\n\n'
     s+='Each operation executes 10001 times, yielding 10002 RDTSC timestamps and 10001 adjacent intervals. The unchanged Dilithium printer subtracts counter overhead and takes the median. Units: thousand cycles (TSC ticks). Message: 32 bytes.\n\n'
-    s+='| Parameter set | q | pk | sig (fixed) | Paper sizes (pk/sig) | ref KeyGen/Sign/Verify | AVX2 KeyGen/Sign/Verify |\n|---|---:|---:|---:|---|---|---|\n'
+    s+='| Parameter set | q | pk | sig (fixed) | 论文尺寸 (pk/sig) | ref KeyGen/Sign/Verify | AVX2 KeyGen/Sign/Verify |\n|---|---:|---:|---:|---|---|---|\n'
     for r in SETS:
         name=r['parameter_set']; trip=[]
         for v in ('ref','avx2'):
@@ -177,10 +190,12 @@ def main():
         name=r['parameter_set']; s+='| %s | %.3f | %.3f |\n'%(name,lookup[name,'ref','ExpandedSign'],lookup[name,'avx2','ExpandedSign'])
     s+='\nUnpadded lengths include the salt and final partial data byte, excluding whole padding bytes. Each mean uses 10000 successfully encoded, verified signatures. One fixed-seed key per build/set; rejected encodings are counted separately.\n\n| Set | Build | Mean bytes | Min/max | Encoding rejects |\n|---|---|---:|---|---:|\n'
     for r in lengths:s+='| %s | %s | %.4f | %d/%d | %d |\n'%(r['set'],r['build'],r['mean'],r['min'],r['max'],r['rejected'])
+    s+=length_comparison(lengths)
     s+='\nCorrectness: existing NTT/poly/RNS unit tests passed for all 20 builds. No upstream KAT exists. Fixed-seed vectors and cross-verification results:\n\n| Set | Equal pk/sk/sig (of 100) | Cross Verify ref←AVX2 / AVX2←ref |\n|---|---|---|\n'
     for r in correctness:
         s+='| %s | %d/%d/%d | 100/100 |\n'%(r['set'],r['equal']['pk'],r['equal']['sk'],r['equal']['sig'])
     s+='\nFMA can change floating-point expanded-key material and signatures. Byte differences are retained in correctness.json; every foreign signature and foreign serialized secret key was verified, and changed messages were rejected.\n\n'
+    s+='The latest shorthand for 3s (768/883) is interpreted as n=768 and sig=883; paper pk=1152 follows the earlier complete table supplied by the user.\n\n'
     s+='Paper comparisons are user-supplied Table 2 / Table 3(b) values. 1s and 5s also differ in q. Removing padding changes length only; it does not make their parameters match the paper.\n\n'
     s+='KeyGen includes pk/sk encoding. Sign includes byte-sk decoding, signing, signature encoding and retry after encoding overflow. Verify includes byte-pk and signature decoding. The repository byte-sk already serializes expanded material; decode_sk restores that material. Algorithm source is unchanged; configuration and driver are external. See metadata.json for source hashes and worktree status.\n'
     (out/'SUMMARY.md').write_text(s)

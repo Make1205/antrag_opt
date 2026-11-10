@@ -181,3 +181,37 @@ algorithm source remains identical to baseline ccca2c6a627973827abc8479f1c32ebf6
 The ignored work directory stores binaries and cross-test vectors; logs, JSON,
 CSV and SUMMARY are retained. No performance numbers from cloud execution should
 be used in the paper.
+
+The later shorthand `3s: 768/883` is interpreted as dimension 768 and signature
+883. The paper pk value remains 1152 bytes from the user's earlier complete
+table, and is explicitly labeled in SUMMARY. This avoids treating dimension
+768 as a public-key byte size.
+
+## Completed cloud validation
+
+All 20 configurations built and passed NTT/poly/RNS tests. All ten 100-case
+fixed-seed cross-check sets passed. Public keys and signatures were byte-identical
+in every compared case. Integer secret-key vectors were also identical; only
+expanded double vectors differed. The largest observed difference normalized by
+max(1, abs(x), abs(y)) was below 9.1e-13. Full values are recorded in
+`results/20261110T034534.469821Z/expanded-key-differences.json`.
+
+The cloud run completed 80 timing items, each with 10001 operations, and six
+length-statistic items, each with 10000 successful signatures. Its execution
+harness was commit `98d61a19c3e22feed31f58915e400a7647395f92`. The run started before this
+harness commit was made; original metadata preserves that initial commit and
+worktree status. Core harness hashes were checked against this commit after
+the run. Later report changes add the Chinese paper-size heading, length
+differences and context labeling, without changing the timing driver or numbers.
+
+1s: mean ref 586.8078 and AVX2 586.8078 bytes; fixed 592 bytes; average ref padding 5.1922 bytes; ref mean minus paper -4.1922 bytes.
+
+3s: mean ref 899.4041 and AVX2 899.4041 bytes; fixed 908 bytes; average ref padding 8.5959 bytes; ref mean minus paper +16.4041 bytes.
+
+5s: mean ref 1238.4003 and AVX2 1238.4003 bytes; fixed 1244 bytes; average ref padding 5.5997 bytes; ref mean minus paper +62.4003 bytes.
+
+For 3s the modulus matches the paper, but padding explains only part of
+the 25-byte fixed-size gap. For 1s/5s the moduli also differ, so unpadding
+alone cannot establish equivalence to the paper parameter sets. These
+statistics use one fixed-seed key per build/set and are conditional on
+successful encoding under the repository fixed-size format.

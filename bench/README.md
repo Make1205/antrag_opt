@@ -34,3 +34,7 @@ core-clock cycles.
 See `NOTES.md` for timing boundaries, seeds, encoded-length interpretation,
 parameter discrepancies and configuration choices. The paper comparison column
 uses the values provided by the user from Table 2 and Table 3(b).
+
+For a cloud workflow check, `BENCH_CONTEXT=cloud bash bench/run.sh` labels the
+report accordingly. The default context is local. This label does not change
+iterations or timing behavior.
