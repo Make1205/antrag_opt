@@ -1,0 +1,62 @@
+[
+  {
+    "set": "1s",
+    "build": "ref",
+    "count": 100,
+    "mean": 586.6,
+    "min": 581,
+    "max": 592,
+    "attempts": 101,
+    "rejected": 1
+  },
+  {
+    "set": "1s",
+    "build": "avx2",
+    "count": 100,
+    "mean": 586.6,
+    "min": 581,
+    "max": 592,
+    "attempts": 101,
+    "rejected": 1
+  },
+  {
+    "set": "3s",
+    "build": "ref",
+    "count": 100,
+    "mean": 898.68,
+    "min": 888,
+    "max": 908,
+    "attempts": 100,
+    "rejected": 0
+  },
+  {
+    "set": "3s",
+    "build": "avx2",
+    "count": 100,
+    "mean": 898.68,
+    "min": 888,
+    "max": 908,
+    "attempts": 100,
+    "rejected": 0
+  },
+  {
+    "set": "5s",
+    "build": "ref",
+    "count": 100,
+    "mean": 1238.28,
+    "min": 1233,
+    "max": 1244,
+    "attempts": 100,
+    "rejected": 0
+  },
+  {
+    "set": "5s",
+    "build": "avx2",
+    "count": 100,
+    "mean": 1238.28,
+    "min": 1233,
+    "max": 1244,
+    "attempts": 100,
+    "rejected": 0
+  }
+]

@@ -1,0 +1,23 @@
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/codec.c -o antrag_codec.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/fips202.c -o antrag_fips202.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/keygen.c -o antrag_keygen.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/normaldist.c -o antrag_normaldist.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/poly.c -o antrag_poly.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/randombytes.c -o antrag_randombytes.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/samplerZ.c -o antrag_samplerZ.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c antrag/sign.c -o antrag_sign.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c falcon/fft.c -o falcon_fft.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c falcon/ntt.c -o falcon_ntt.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c falcon/rng.c -o falcon_rng.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c falcon/shake.c -o falcon_shake.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c ntru/cpoly.c -o ntru_cpoly.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c ntru/ipoly.c -o ntru_ipoly.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c ntru/ntru.c -o ntru_ntru.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c ntru/rns.c -o ntru_rns.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c bench/driver.c -o bench_driver.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c bench/cpucycles.c -o bench_cpucycles.c.o
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 -c bench/speed_print.c -o bench_speed_print.c.o
+$ /usr/bin/gcc antrag_codec.c.o antrag_fips202.c.o antrag_keygen.c.o antrag_normaldist.c.o antrag_poly.c.o antrag_randombytes.c.o antrag_samplerZ.c.o antrag_sign.c.o falcon_fft.c.o falcon_ntt.c.o falcon_rng.c.o falcon_shake.c.o ntru_cpoly.c.o ntru_ipoly.c.o ntru_ntru.c.o ntru_rns.c.o bench_driver.c.o bench_cpucycles.c.o bench_speed_print.c.o -lm -lgmp -o driver
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 tests/ntt_test.c -lm -lgmp -o ntt_test
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 tests/poly_test.c antrag_codec.c.o antrag_fips202.c.o antrag_keygen.c.o antrag_normaldist.c.o antrag_poly.c.o antrag_randombytes.c.o antrag_samplerZ.c.o antrag_sign.c.o falcon_fft.c.o falcon_ntt.c.o falcon_rng.c.o falcon_shake.c.o ntru_cpoly.c.o ntru_ipoly.c.o ntru_ntru.c.o ntru_rns.c.o -lm -lgmp -o poly_test
+$ /usr/bin/gcc -O3 -march=native -DNDEBUG -std=gnu11 -ffp-contract=off -DRUNS=11 -DLENGTH_SAMPLES=100 tests/rns_test.c antrag_codec.c.o antrag_fips202.c.o antrag_keygen.c.o antrag_normaldist.c.o antrag_poly.c.o antrag_randombytes.c.o antrag_samplerZ.c.o antrag_sign.c.o falcon_fft.c.o falcon_ntt.c.o falcon_rng.c.o falcon_shake.c.o ntru_cpoly.c.o ntru_ipoly.c.o ntru_ntru.c.o ntru_rns.c.o -lm -lgmp -o rns_test

@@ -8,7 +8,12 @@
 #include "cpucycles.h"
 #include "speed_print.h"
 #define CASES 100
+#ifndef RUNS
 #define RUNS 10001
+#endif
+#ifndef LENGTH_SAMPLES
+#define LENGTH_SAMPLES 10000
+#endif
 extern prng p;
 static secret_key sk;
 static public_key pk;
@@ -81,31 +86,33 @@ static size_t unpadded(void) {
 static void lengths(void) {
     seed(4,0); keygen_full(&sk,&pk); attempts=0;
     unsigned long long total=0; size_t low=ANTRAG_SIG_SIZE,high=0;
-    for(int i=0;i<10000;i++) {
+    for(int i=0;i<LENGTH_SAMPLES;i++) {
         signed_bytes(); require(verify(sizeof msg,msg,&pk,&sig),"length verification");
         size_t n=unpadded(); total+=n; if(n<low)low=n; if(n>high)high=n;
     }
-    printf("LENGTH %llu 10000 %zu %zu %u\n",total,low,high,attempts);
+    printf("LENGTH %llu %d %zu %zu %u\n",total,LENGTH_SAMPLES,low,high,attempts);
 }
 static void timing(void) {
-    static uint64_t t[RUNS+1];
-    seed(3,0); keygen_full(&sk,&pk); encode_pk(pkb,&pk); encode_sk(skb,&sk); signed_bytes();
-    for(int op=0;op<4;op++) {
-        unsigned verified=0;
-        for(int i=0;i<RUNS;i++) {
-            t[i]=cpucycles();
-            if(op==0) { keygen_full(&sk,&pk); encode_pk(pkb,&pk); encode_sk(skb,&sk); }
-            if(op==1) { decode_sk(&sk,skb); signed_bytes(); }
-            if(op==2) { verified+=(unsigned)verify_bytes(); }
-            if(op==3) { signed_bytes(); }
-        }
-        t[RUNS]=cpucycles();
-        if(op==2) require(verified==RUNS,"timed verify");
-        print_results((const char*[]){"KeyGen","Sign","Verify","ExpandedSign"}[op],t,RUNS+1);
-        /* op0 changed the key; prepare a corresponding signature before verify. */
-        if(op==0) signed_bytes();
+    static uint64_t t[4][RUNS+1];
+    seed(3,0);
+    for(unsigned i=0;i<RUNS+20;i++) {
+        uint64_t start=cpucycles();
+        keygen_full(&sk,&pk);encode_pk(pkb,&pk);encode_sk(skb,&sk);
+        uint64_t kg=cpucycles()-start;
+        start=cpucycles();decode_sk(&sk,skb);signed_bytes();uint64_t sg=cpucycles()-start;
+        start=cpucycles();int ok=verify_bytes();uint64_t vf=cpucycles()-start;
+        require(ok,"timed verify");
+        if(i>=20){unsigned j=i-20;t[0][j+1]=t[0][j]+kg;t[1][j+1]=t[1][j]+sg;t[2][j+1]=t[2][j]+vf;}
     }
+    /* Supplemental expanded-key timing reuses the last decoded key. */
+    decode_sk(&sk,skb);
+    for(unsigned i=0;i<RUNS+20;i++) {
+        uint64_t start=cpucycles();signed_bytes();uint64_t dt=cpucycles()-start;
+        if(i>=20){unsigned j=i-20;t[3][j+1]=t[3][j]+dt;}
+    }
+    for(int op=0;op<4;op++)print_results((const char*[]){"KeyGen","Sign","Verify","ExpandedSign"}[op],t[op],RUNS+1);
 }
+
 int main(int argc,char **argv) {
     require(argc>=2,"mode required");
     printf("META %d %d %d %d %d\n",ANTRAG_D,ANTRAG_Q,ANTRAG_PK_SIZE,ANTRAG_SK_SIZE,ANTRAG_SIG_SIZE);

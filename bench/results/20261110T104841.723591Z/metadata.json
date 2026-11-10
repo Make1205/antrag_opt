@@ -1,0 +1,181 @@
+{
+  "run_context": "local",
+  "commit": "b5cf110479875ad3b6cf55c475c177d9b070f47f",
+  "status": "M bench/NOTES.md\n M bench/driver.c\n M bench/run.py\n?? bench/PROTOCOL.md\n?? bench/fma_audit.py",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "gcc": "gcc (Debian 14.2.0-19) 14.2.0",
+  "cpu_affinity": 0,
+  "flags": {
+    "ref": [
+      "-O3",
+      "-march=native",
+      "-DNDEBUG",
+      "-std=gnu11",
+      "-ffp-contract=off",
+      "-DRUNS=11",
+      "-DLENGTH_SAMPLES=100",
+      "-include",
+      "bench/config_ref.h"
+    ],
+    "avx2": [
+      "-O3",
+      "-march=native",
+      "-DNDEBUG",
+      "-std=gnu11",
+      "-ffp-contract=off",
+      "-DRUNS=11",
+      "-DLENGTH_SAMPLES=100"
+    ]
+  },
+  "link_flags": [
+    "-lm",
+    "-lgmp"
+  ],
+  "iterations": 11,
+  "scale": "QUICK",
+  "length_samples": 100,
+  "timing_warmup": 20,
+  "protocol": "byte-keys-msg32-fresh-triples-warm20-fp-contract-off-v3",
+  "timing_source_commit": "bba9534a3c5cbef66481cd6518d786e23ae601b5",
+  "parameters": [
+    {
+      "parameter_set": "1f",
+      "n": 512,
+      "q": 12289,
+      "pk": 896,
+      "sk": 59392,
+      "sig": 642
+    },
+    {
+      "parameter_set": "1s",
+      "n": 512,
+      "q": 3583,
+      "pk": 768,
+      "sk": 59392,
+      "sig": 592
+    },
+    {
+      "parameter_set": "2f",
+      "n": 648,
+      "q": 9721,
+      "pk": 1134,
+      "sk": 75168,
+      "sig": 812
+    },
+    {
+      "parameter_set": "2s",
+      "n": 648,
+      "q": 3889,
+      "pk": 972,
+      "sk": 75168,
+      "sig": 768
+    },
+    {
+      "parameter_set": "3f",
+      "n": 768,
+      "q": 18433,
+      "pk": 1440,
+      "sk": 89088,
+      "sig": 1002
+    },
+    {
+      "parameter_set": "3s",
+      "n": 768,
+      "q": 3329,
+      "pk": 1152,
+      "sk": 89088,
+      "sig": 908
+    },
+    {
+      "parameter_set": "4f",
+      "n": 864,
+      "q": 10369,
+      "pk": 1512,
+      "sk": 100224,
+      "sig": 1090
+    },
+    {
+      "parameter_set": "4s",
+      "n": 864,
+      "q": 2593,
+      "pk": 1296,
+      "sk": 100224,
+      "sig": 1006
+    },
+    {
+      "parameter_set": "5f",
+      "n": 1024,
+      "q": 12289,
+      "pk": 1792,
+      "sk": 118784,
+      "sig": 1282
+    },
+    {
+      "parameter_set": "5s",
+      "n": 1024,
+      "q": 5119,
+      "pk": 1664,
+      "sk": 118784,
+      "sig": 1244
+    }
+  ],
+  "source_sha256": {
+    "antrag/api.h": "f4ccbf8513de5781f9fd7ebd325cefc34edb3d8529c881cbfe14cbd72ae295a2",
+    "antrag/codec.c": "57754598c513f620ced42f5cbb0e3f61ba280470558286917a8c656f4f223e07",
+    "antrag/cpucycles.c": "16cece690a892ba25dcb8b4d3ca210b2d8a6526168c922d6003d56a7893bdd1d",
+    "antrag/cpucycles.h": "fe13505a5c4bc0c7a23b49e2aaadbac4a4f597003964ed326ae352dc6e3c0e59",
+    "antrag/fips202.c": "7ffa487b12f14280a439345ab6c6df35820de2a76924b4c0af240b433017303f",
+    "antrag/fips202.h": "582faee8ad798df66a5f2706b29a35f8b8762671b1a164e4f859804cc6b142ec",
+    "antrag/keygen.c": "9da8b7be843ab85110de22b3517c0d3e1d3ecae15d826478b0bf090f311d0d45",
+    "antrag/main.c": "52fe660c500909d702d01be64d936657170e38485becb766283dfd0d0a645dd1",
+    "antrag/normaldist.c": "3a0be603415cd0dc95bc8e14ad01454f15d4c0e0565e32e086c18d3b1799d6ee",
+    "antrag/normaldist.h": "487ac0275fb547d840fe69d8f9d00464ba2bd7d5cdc2f6282f263b7f9c8c8b05",
+    "antrag/param.h": "aa7ea333315cfc38c95d5682c4e741df06878b36830c26ac008c70835ac3fcfc",
+    "antrag/poly.c": "f5a08eb7c9d932a781f03ff9292c35818099aaae95419da8192bc0bc83653553",
+    "antrag/poly.h": "7988a11d53f3dbd5baa33bff62cd4b32936ae91bba6b661f0e63cd0b1f6f3304",
+    "antrag/randombytes.c": "c3e561f035588a14edcfdeede973324b2acb82286c3d67ef39b7fecdcfa884ab",
+    "antrag/randombytes.h": "a456ce24239ca55b5b6b44cf34d122830163195194b907974288ef7b0512d161",
+    "antrag/samplerZ.c": "000eb2aaede36597afb9c69c75cb86b1f2d987c06751a4b48d28f5847269798e",
+    "antrag/samplerZ.h": "b9dc4390f9ecd49019f27fef8f325b7a627162cce715a2fa96da87ab30748aab",
+    "antrag/sign.c": "b6e9bdbce38c58769da2d3989b5c6945d624568cd5afc0318c2fb2c92657889a",
+    "falcon/config.h": "a3229bdd54a36d63dcb86502fec3a1d9da339334ee5c9630d333af48a7d2096c",
+    "falcon/fft.c": "b3e3b2fe3a58a8a7d8139a801cc2b3dc6873d4f1511ca89b0e6781e9a550555d",
+    "falcon/fpr.h": "3f832f6ce35144bdfc2dcfa737f4575cabccf3597667280a22ab112faf63c246",
+    "falcon/inner.h": "62387254ca3b933acc8f2bda7e4e6ce8de5036fdb4c5495511cbf3a4d6ac1c51",
+    "falcon/ntt.c": "222050f38068b8f36e9935999e4584425133706372c6d4c7059256331b778039",
+    "falcon/rng.c": "7968e4049a747cea06f3fca468894a6d3066681c347ee2b2921c211576e76c08",
+    "falcon/shake.c": "3c7201d3ec42d37a2c5c3ef12994b8f88067d1038ee2a99fc40e616c58e1c6ad",
+    "ntru/cpoly.c": "99efb59405b7421c0a4fe2318be903bccc8911bf21030f698d1ae46f09708b66",
+    "ntru/cpoly.h": "30b04ba5bad2c99f263014c10115b055a48e623f448c915d97d03de03d39afd5",
+    "ntru/ipoly.c": "86228de644ca3bdf6a53111f00ce5ece8254a39e73348fd07c9302d94588bad4",
+    "ntru/ipoly.h": "3cb3386f898148275172293adc1e3243190c53078da5e0be8c62cb0a71004c91",
+    "ntru/ntru.c": "97c158490ec1964477af6b09f0f4c78636e7c7527a3dd84f7f90219e5c96afb4",
+    "ntru/ntru.h": "00b0b2d86784d5d0d5eee4cb9c31a8426c27ece4e56d94fef922d109aa2b8053",
+    "ntru/rns.c": "b1c2cbb1f39012570208fd7d77c72831c0d7201148ef3751a8e5e607da817d61",
+    "ntru/rns.h": "95b12b322dfd21cb9121bb88eccc54241eee79bad6e576978d5d044da57ed57c",
+    "tests/benchmarks.c": "7bf16362f6d205bf704e0e42832dc156f8175fd719d8921cba25a113f11522c8",
+    "tests/benchmarks.h": "d57a14d65c6c5d52346799e7566746e1adce798181ad6c19fd078eecbba62cbc",
+    "tests/codec_test.c": "3e90b534c994446ed69b5e2b5f94e3b61b013085887cae7118105f07521a7b61",
+    "tests/cst_time_test.c": "8cb86adb2099abae8ccc4ceaad6bed81701381d284fc6bf97507093e6b3b72d6",
+    "tests/ntt_test.c": "f558ca97b51c348452d1201853bb7df9f7f272552c1ee4f8d3180d4841dc14c8",
+    "tests/poly_test.c": "ccda0a4b7cd0ab679ebd8acc93be5fff1600c2f9bc80539a245aa729053327f6",
+    "tests/rns_test.c": "53a3fc62e9ae39b65c9f4d27d39835e3060bcfc33233ce7bb710596e869a738c"
+  },
+  "bench_sha256": {
+    "bench/.gitignore": "68c8824892a82c4a572123a7baf73b9b687318782f39021fb10ead083095a2fe",
+    "bench/NOTES.md": "7ad8c739f04786e5d4e57a850a3d58b905bc264db4df46b7f0400bfaefb250a5",
+    "bench/PROTOCOL.md": "8553a21619f18ea85ce2d920b29cda87f4521a5bc1d88339d98a614e7a2011e6",
+    "bench/README.md": "9c66a71abbdf24af635f9bb929b522f305817b17e11a4ac197ece209e392a0a1",
+    "bench/config_ref.h": "a745d2899e6880c2f17ac84827f891f0c6e3ec75791ebcc0b1c97db56351923f",
+    "bench/cpucycles.c": "31cc4c16b1e896b2cf7cc154aa21430329c0047cf9898a1865f9bfe9904f25e4",
+    "bench/cpucycles.h": "7f1e2b68cf3e3c76076364af3c5350de61442450c477aec809da8de10e131838",
+    "bench/driver.c": "055dd448f916eca9ef1ad64ceeeb358e3988417326c6a4dae93e0cf1055c1b0f",
+    "bench/fma_audit.py": "90af0b7c726980e7130d3dd8515295ab787eb4e98667dc2fab22d28cc5318908",
+    "bench/inventory.json": "a5549c9eb70295eaacf56469d8d48086b7a24fabd7ae4f844ccf510a35c89eef",
+    "bench/params.sha256.json": "e5fb2c55afbf606d181c2937cd5f2ba79f5fc23cc4cc7084e06c44d4cf9e8fab",
+    "bench/run.py": "cf8cfe01e5c244da18fc21d83fba262cb98e96cfbc2cab09895b944f6181de93",
+    "bench/run.sh": "570806ab32aa072738e6d782532cb670693c3a6699ca60066d12069a482596a7",
+    "bench/speed_print.c": "533fc7bd12204078a5390cfb58c05d550b214850876609f8e98f7377b9d4f1b3",
+    "bench/speed_print.h": "3946b0226c63125664eb443a20d43563e6d1ba7fa3be5c1b952cd29d1477b2ef"
+  }
+}

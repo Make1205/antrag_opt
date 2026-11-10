@@ -1,0 +1,194 @@
+{
+  "status": "PASS",
+  "executable": "driver",
+  "executable_fma_count": 8,
+  "explicit_intrinsics_allowed_objects": [
+    "falcon_fft.c.o"
+  ],
+  "object_fma_counts": [
+    {
+      "file": "antrag_codec.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_fips202.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_keygen.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_normaldist.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_poly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_randombytes.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_samplerZ.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_sign.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_fft.c.o",
+      "fma_count": 8,
+      "explicit_intrinsics_allowed": true,
+      "instructions": [
+        {
+          "symbol": "falcon_inner_poly_mul_fft",
+          "instruction": "e94:\tc4 e2 fd ba d4       \tvfmsub231pd %ymm4,%ymm0,%ymm2"
+        },
+        {
+          "symbol": "falcon_inner_poly_mul_fft",
+          "instruction": "e99:\tc4 e2 f5 98 c3       \tvfmadd132pd %ymm3,%ymm1,%ymm0"
+        },
+        {
+          "symbol": "falcon_inner_poly_muladj_fft",
+          "instruction": "ef0:\tc4 e2 f5 b8 d3       \tvfmadd231pd %ymm3,%ymm1,%ymm2"
+        },
+        {
+          "symbol": "falcon_inner_poly_muladj_fft",
+          "instruction": "ef9:\tc4 e2 f5 9a c3       \tvfmsub132pd %ymm3,%ymm1,%ymm0"
+        },
+        {
+          "symbol": "falcon_inner_poly_mulselfadj_fft",
+          "instruction": "f5c:\tc4 e2 f5 98 c0       \tvfmadd132pd %ymm0,%ymm1,%ymm0"
+        },
+        {
+          "symbol": "falcon_inner_poly_div_fft",
+          "instruction": "fa0:\tc4 e2 fd b8 d0       \tvfmadd231pd %ymm0,%ymm0,%ymm2"
+        },
+        {
+          "symbol": "falcon_inner_poly_div_fft",
+          "instruction": "fb5:\tc4 e2 dd b8 d0       \tvfmadd231pd %ymm0,%ymm4,%ymm2"
+        },
+        {
+          "symbol": "falcon_inner_poly_div_fft",
+          "instruction": "fbe:\tc4 e2 dd 9a d8       \tvfmsub132pd %ymm0,%ymm4,%ymm3"
+        }
+      ]
+    },
+    {
+      "file": "falcon_ntt.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_rng.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_shake.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_cpoly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_ipoly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_ntru.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_rns.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_driver.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_cpucycles.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_speed_print.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    }
+  ],
+  "executable_instructions": [
+    {
+      "symbol": "falcon_inner_poly_mul_fft",
+      "instruction": "14e14:\tc4 e2 fd ba d4       \tvfmsub231pd %ymm4,%ymm0,%ymm2"
+    },
+    {
+      "symbol": "falcon_inner_poly_mul_fft",
+      "instruction": "14e19:\tc4 e2 f5 98 c3       \tvfmadd132pd %ymm3,%ymm1,%ymm0"
+    },
+    {
+      "symbol": "falcon_inner_poly_muladj_fft",
+      "instruction": "14e70:\tc4 e2 f5 b8 d3       \tvfmadd231pd %ymm3,%ymm1,%ymm2"
+    },
+    {
+      "symbol": "falcon_inner_poly_muladj_fft",
+      "instruction": "14e79:\tc4 e2 f5 9a c3       \tvfmsub132pd %ymm3,%ymm1,%ymm0"
+    },
+    {
+      "symbol": "falcon_inner_poly_mulselfadj_fft",
+      "instruction": "14edc:\tc4 e2 f5 98 c0       \tvfmadd132pd %ymm0,%ymm1,%ymm0"
+    },
+    {
+      "symbol": "falcon_inner_poly_div_fft",
+      "instruction": "14f20:\tc4 e2 fd b8 d0       \tvfmadd231pd %ymm0,%ymm0,%ymm2"
+    },
+    {
+      "symbol": "falcon_inner_poly_div_fft",
+      "instruction": "14f35:\tc4 e2 dd b8 d0       \tvfmadd231pd %ymm0,%ymm4,%ymm2"
+    },
+    {
+      "symbol": "falcon_inner_poly_div_fft",
+      "instruction": "14f3e:\tc4 e2 dd 9a d8       \tvfmsub132pd %ymm0,%ymm4,%ymm3"
+    }
+  ],
+  "unexpected_objects": [],
+  "unexpected_executable_instructions": [],
+  "note": "Explicit upstream intrinsics are preserved; compiler contraction is disabled for floating-point builds. Shared-library code is outside this executable audit."
+}

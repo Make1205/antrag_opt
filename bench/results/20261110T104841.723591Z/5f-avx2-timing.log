@@ -1,0 +1,18 @@
+$ /workspace/antrag_opt/bench/results/20261110T104841.723591Z/work/5f-avx2/driver time
+META 1024 12289 1792 118784 1282
+KeyGen
+median: 37298741 cycles/ticks
+average: 37566862 cycles/ticks
+
+Sign
+median: 481623 cycles/ticks
+average: 516479 cycles/ticks
+
+Verify
+median: 132677 cycles/ticks
+average: 132606 cycles/ticks
+
+ExpandedSign
+median: 428141 cycles/ticks
+average: 487123 cycles/ticks
+

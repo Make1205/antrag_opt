@@ -215,3 +215,13 @@ the 25-byte fixed-size gap. For 1s/5s the moduli also differ, so unpadding
 alone cannot establish equivalence to the paper parameter sets. These
 statistics use one fixed-seed key per build/set and are conditional on
 successful encoding under the repository fixed-size format.
+
+
+## FP contraction policy update (2026-11-10)
+
+The shared rule in PROTOCOL.md now requires -ffp-contract=off for all actual
+floating-point builds. The local c-fn-dsa index-3461 mismatch was traced to
+compiler contraction (15 FMA -> 0; equality restored), not a source defect.
+All runs now audit benchmark-owned objects and the linked driver with objdump
+and save *-fma-audit.json. Missing objdump fails preflight: apt install binutils.
+Both ref and AVX2 now use the flag. Ref auto-vectorization suppression has been removed to match the common GCC rule. Ref must have zero FMA. AVX2 preserves FALCON_FMA=1 and the explicit FMADD/FMSUB intrinsics from falcon/inner.h:110-111 used in falcon/fft.c; only that object and its linked symbols may contain FMA. No algorithm macro or source intrinsic is disabled to force a zero count. QUICK=1 now uses 11 timing calls and 100 length samples; FULL stays 10001 and 10000; the original 100-key correctness corpus is retained. Main timing now uses fresh byte-key triples and 20 warmup rounds, with expanded-key Sign timed separately on a decoded key. Native tests still run for all 20 builds.

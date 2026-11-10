@@ -1,0 +1,18 @@
+$ /workspace/antrag_opt/bench/results/20261110T104841.723591Z/work/5s-ref/driver time
+META 1024 5119 1664 118784 1244
+KeyGen
+median: 33804159 cycles/ticks
+average: 34732715 cycles/ticks
+
+Sign
+median: 763905 cycles/ticks
+average: 842004 cycles/ticks
+
+Verify
+median: 241617 cycles/ticks
+average: 286485 cycles/ticks
+
+ExpandedSign
+median: 698385 cycles/ticks
+average: 770908 cycles/ticks
+

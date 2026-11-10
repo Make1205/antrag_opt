@@ -10,12 +10,16 @@ import re
 import shutil
 import subprocess
 import sys
+import fma_audit
 
 ROOT = Path(__file__).resolve().parent.parent
 BENCH = ROOT / 'bench'
 SETS = json.loads((BENCH / 'inventory.json').read_text())
-FLAGS = ['-O3', '-march=native', '-DNDEBUG', '-std=gnu11']
-REF = ['-include', 'bench/config_ref.h', '-fno-tree-vectorize', '-fno-tree-slp-vectorize']
+QUICK = os.environ.get('QUICK') == '1'
+TIMING_RUNS = 11 if QUICK else 10001
+LENGTH_RUNS = 100 if QUICK else 10000
+FLAGS = ['-O3', '-march=native', '-DNDEBUG', '-std=gnu11', '-ffp-contract=off', '-DRUNS='+str(TIMING_RUNS), '-DLENGTH_SAMPLES='+str(LENGTH_RUNS)]
+REF = ['-include', 'bench/config_ref.h']
 PAPER = {'1s': 'n=512, q=3329; 768/591', '3s': 'n=768, q=3329; 1152/883',
          '5s': 'n=1024, q=3329; 1536/1176'}
 ENV = dict(os.environ, LANG='C', LC_ALL='C')
@@ -58,6 +62,7 @@ def build(row, variant, out):
         call([GCC] + flags + ['-c', s, '-o', obj], stage, log)
         objects.append(obj)
     call([GCC] + objects + ['-lm','-lgmp','-o','driver'], stage, log)
+    fma_audit.audit(stage/'driver', [stage/o for o in objects], out/(row['parameter_set']+'-'+variant+'-fma-audit.json'), explicit_objects=['falcon_fft.c.o'] if variant=='avx2' else [])
     # Existing meaningful unit tests, for both configurations and every set.
     for name, deps in [('ntt', []), ('poly', objects[:-3]),
                        ('rns', objects[:-3])]:
@@ -76,12 +81,18 @@ def length_comparison(lengths):
     return s
 
 def main():
+    fma_audit.preflight()
     if sys.version_info < (3,8):
         raise RuntimeError('Python 3.8+ required')
     if not Path(GCC).is_file():
         raise RuntimeError('System /usr/bin/gcc and GMP development headers/library required')
     if not sys.platform.startswith('linux') or os.uname().machine != 'x86_64':
         raise RuntimeError('The requested RDTSC/AVX2 benchmark requires Linux x86-64')
+    probe = BENCH/('.toolchain-probe-'+str(os.getpid()))
+    cp = subprocess.run([GCC,'-x','c','-','-o',str(probe),'-lgmp','-lm'],input=b'#include <gmp.h>\n#include <math.h>\nint main(void){mpz_t z;mpz_init(z);mpz_clear(z);return 0;}\n',stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=ENV)
+    if cp.returncode:
+        raise RuntimeError('Missing C/GMP development dependency: apt install build-essential libgmp-dev\n'+cp.stderr.decode(errors='replace'))
+    probe.unlink()
     cpuinfo = Path('/proc/cpuinfo').read_text()
     features = set(re.search(r'^flags\s*:\s*(.*)$',cpuinfo,re.M)[1].split())
     if not {'avx2','fma'} <= features:
@@ -102,7 +113,7 @@ def main():
                 'cpu':re.search(r'^model name\s*:\s*(.*)$',cpuinfo,re.M)[1],
                 'gcc':call([GCC,'--version']).splitlines()[0], 'cpu_affinity':cpu,
                 'flags':{'ref':FLAGS+REF,'avx2':FLAGS},
-                'link_flags':['-lm','-lgmp'], 'iterations':10001,
+                'link_flags':['-lm','-lgmp'], 'iterations':TIMING_RUNS, 'scale':'QUICK' if QUICK else 'FULL', 'length_samples':LENGTH_RUNS, 'timing_warmup':20, 'protocol':'byte-keys-msg32-fresh-triples-warm20-fp-contract-off-v3',
                 'timing_source_commit':'bba9534a3c5cbef66481cd6518d786e23ae601b5',
                 'parameters':SETS}
     metadata['source_sha256'] = {str(p.relative_to(ROOT)):sha(p)
@@ -148,7 +159,7 @@ def main():
     for row in SETS:
         for v in ('ref','avx2'):
             name=row['parameter_set']
-            print('Timing (10001 operations each):',name,v,flush=True)
+            print('Timing (%d operations each):'%TIMING_RUNS,name,v,flush=True)
             text=call([binaries[name,v],'time'],logfile=out/(name+'-'+v+'-timing.log'))
             meta=re.search(r'META (\d+) (\d+) (\d+) (\d+) (\d+)',text)
             if list(map(int,meta.groups())) != [row[k] for k in ('n','q','pk','sk','sig')]:
@@ -157,7 +168,7 @@ def main():
                 m=re.search(r'^'+op+r'\nmedian: (\d+) cycles/ticks',text,re.M)
                 if not m: raise RuntimeError('Missing timing '+op)
                 results.append(dict(row,build=v,operation=op,median_cycles=int(m[1]),
-                                    kcycles=int(m[1])/1000,iterations=10001))
+                                    kcycles=int(m[1])/1000,iterations=TIMING_RUNS))
             if name in PAPER:
                 text=call([binaries[name,v],'length'],logfile=out/'lengths.log')
                 total,count,lo,hi,attempts=map(int,re.search(r'LENGTH (\d+) (\d+) (\d+) (\d+) (\d+)',text).groups())
@@ -170,15 +181,15 @@ def main():
         fields=['parameter_set','n','q','pk','sk','sig','build','operation','iterations','median_cycles','kcycles']
         w=csv.DictWriter(f,fieldnames=fields); w.writeheader(); w.writerows(results)
     lookup={(r['parameter_set'],r['build'],r['operation']):r['kcycles'] for r in results}
-    s='# Antrag benchmark\n\nRun context: '+metadata['run_context']+'.\n\n'
-    if metadata['run_context'] == 'cloud':
+    s='# Antrag benchmark — '+('QUICK' if QUICK else 'FULL')+'\n\nRun context: '+metadata['run_context']+'.\n\n'
+    if QUICK or metadata['run_context'] == 'cloud':
         s+='Cloud numbers validate the workflow only; exclude them from paper results.\n\n'
     s+='Code commit: `'+metadata['commit']+'`.\n\n'
     s+='CPU: '+metadata['cpu']+'; pinned logical CPU '+str(cpu)+'.\n\nGCC: '+metadata['gcc']+'.\n\n'
     for v in ('ref','avx2'):
         s+=v+' flags: `'+ ' '.join(metadata['flags'][v])+'`; link: `-lm -lgmp`.\n\n'
-    s+='Native hardware double/libm in both builds. Ref disables explicit SIMD and compiler loop/SLP vectorization. AVX2 enables upstream AVX2/FMA.\n\n'
-    s+='Each operation executes 10001 times, yielding 10002 RDTSC timestamps and 10001 adjacent intervals. The unchanged Dilithium printer subtracts counter overhead and takes the median. Units: thousand cycles (TSC ticks). Message: 32 bytes.\n\n'
+    s+='Native hardware double/libm in both builds. Ref disables upstream explicit SIMD/FMA without extra compiler auto-vectorization suppression. Both builds disable compiler contraction; AVX2 preserves upstream explicit FMA intrinsics in falcon/fft.c.\n\n'
+    s+='Each operation executes %d measured calls after 20 warmup rounds; fresh byte-key triples for KeyGen/Sign/Verify. The unchanged Dilithium printer subtracts counter overhead and takes the median. Units: thousand cycles (TSC ticks). Message: 32 bytes.\n\n'%TIMING_RUNS
     s+='| Parameter set | q | pk | sig (fixed) | 论文尺寸 (pk/sig) | ref KeyGen/Sign/Verify | AVX2 KeyGen/Sign/Verify |\n|---|---:|---:|---:|---|---|---|\n'
     for r in SETS:
         name=r['parameter_set']; trip=[]
@@ -188,12 +199,16 @@ def main():
     s+='\nExpanded-key Sign includes signature encoding and encoding retries, excluding byte-secret-key decoding.\n\n| Set | ref | AVX2 |\n|---|---:|---:|\n'
     for r in SETS:
         name=r['parameter_set']; s+='| %s | %.3f | %.3f |\n'%(name,lookup[name,'ref','ExpandedSign'],lookup[name,'avx2','ExpandedSign'])
-    s+='\nUnpadded lengths include the salt and final partial data byte, excluding whole padding bytes. Each mean uses 10000 successfully encoded, verified signatures. One fixed-seed key per build/set; rejected encodings are counted separately.\n\n| Set | Build | Mean bytes | Min/max | Encoding rejects |\n|---|---|---:|---|---:|\n'
+    s+='\nUnpadded lengths include the salt and final partial data byte, excluding whole padding bytes. Each mean uses '+str(LENGTH_RUNS)+' successfully encoded, verified signatures. One fixed-seed key per build/set; rejected encodings are counted separately.\n\n| Set | Build | Mean bytes | Min/max | Encoding rejects |\n|---|---|---:|---|---:|\n'
     for r in lengths:s+='| %s | %s | %.4f | %d/%d | %d |\n'%(r['set'],r['build'],r['mean'],r['min'],r['max'],r['rejected'])
     s+=length_comparison(lengths)
     s+='\nCorrectness: existing NTT/poly/RNS unit tests passed for all 20 builds. No upstream KAT exists. Fixed-seed vectors and cross-verification results:\n\n| Set | Equal pk/sk/sig (of 100) | Cross Verify ref←AVX2 / AVX2←ref |\n|---|---|---|\n'
     for r in correctness:
         s+='| %s | %d/%d/%d | 100/100 |\n'%(r['set'],r['equal']['pk'],r['equal']['sk'],r['equal']['sig'])
+    s+='\nFMA audit (linked driver; only explicit upstream FFT intrinsics may remain):\n\n| Set | ref count | AVX2 explicit FMA count |\n|---|---:|---:|\n'
+    for row in SETS:
+        counts=[json.loads((out/(row['parameter_set']+'-'+v+'-fma-audit.json')).read_text())['executable_fma_count'] for v in ('ref','avx2')]
+        s+='| %s | %d | %d |\n'%(row['parameter_set'],*counts)
     s+='\nFMA can change floating-point expanded-key material and signatures. Byte differences are retained in correctness.json; every foreign signature and foreign serialized secret key was verified, and changed messages were rejected.\n\n'
     s+='The latest shorthand for 3s (768/883) is interpreted as n=768 and sig=883; paper pk=1152 follows the earlier complete table supplied by the user.\n\n'
     s+='Paper comparisons are user-supplied Table 2 / Table 3(b) values. 1s and 5s also differ in q. Removing padding changes length only; it does not make their parameters match the paper.\n\n'

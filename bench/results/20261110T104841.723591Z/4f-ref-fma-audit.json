@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "executable": "driver",
+  "executable_fma_count": 0,
+  "explicit_intrinsics_allowed_objects": [],
+  "object_fma_counts": [
+    {
+      "file": "antrag_codec.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_fips202.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_keygen.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_normaldist.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_poly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_randombytes.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_samplerZ.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "antrag_sign.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_fft.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_ntt.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_rng.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "falcon_shake.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_cpoly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_ipoly.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_ntru.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "ntru_rns.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_driver.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_cpucycles.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    },
+    {
+      "file": "bench_speed_print.c.o",
+      "fma_count": 0,
+      "explicit_intrinsics_allowed": false,
+      "instructions": []
+    }
+  ],
+  "executable_instructions": [],
+  "unexpected_objects": [],
+  "unexpected_executable_instructions": [],
+  "note": "Explicit upstream intrinsics are preserved; compiler contraction is disabled for floating-point builds. Shared-library code is outside this executable audit."
+}
