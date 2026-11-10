@@ -1,0 +1,260 @@
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/ntt_test
+Direct NTT works.
+NTT round trips.
+NTT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/poly_test
+Polynomial addition works.
+FFT works.
+FFT round trips.
+FFT multiplication works.
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/rns_test
+RNS implementation roundtrips.
+NTT implementation roundtrips.
+NTT multiplication works.

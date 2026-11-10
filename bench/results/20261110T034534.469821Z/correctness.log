@@ -1,0 +1,120 @@
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref.vectors
+META 512 12289 896 59392 642
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2.vectors
+META 512 12289 896 59392 642
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2.vectors
+META 512 12289 896 59392 642
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1f-ref.vectors
+META 512 12289 896 59392 642
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref.vectors
+META 512 3583 768 59392 592
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2.vectors
+META 512 3583 768 59392 592
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2.vectors
+META 512 3583 768 59392 592
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/1s-ref.vectors
+META 512 3583 768 59392 592
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref.vectors
+META 648 9721 1134 75168 812
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2.vectors
+META 648 9721 1134 75168 812
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2.vectors
+META 648 9721 1134 75168 812
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2f-ref.vectors
+META 648 9721 1134 75168 812
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref.vectors
+META 648 3889 972 75168 768
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2.vectors
+META 648 3889 972 75168 768
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2.vectors
+META 648 3889 972 75168 768
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/2s-ref.vectors
+META 648 3889 972 75168 768
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref.vectors
+META 768 18433 1440 89088 1002
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2.vectors
+META 768 18433 1440 89088 1002
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2.vectors
+META 768 18433 1440 89088 1002
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3f-ref.vectors
+META 768 18433 1440 89088 1002
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref.vectors
+META 768 3329 1152 89088 908
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2.vectors
+META 768 3329 1152 89088 908
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2.vectors
+META 768 3329 1152 89088 908
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/3s-ref.vectors
+META 768 3329 1152 89088 908
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref.vectors
+META 864 10369 1512 100224 1090
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2.vectors
+META 864 10369 1512 100224 1090
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2.vectors
+META 864 10369 1512 100224 1090
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4f-ref.vectors
+META 864 10369 1512 100224 1090
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref.vectors
+META 864 2593 1296 100224 1006
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2.vectors
+META 864 2593 1296 100224 1006
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2.vectors
+META 864 2593 1296 100224 1006
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/4s-ref.vectors
+META 864 2593 1296 100224 1006
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref.vectors
+META 1024 12289 1792 118784 1282
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2.vectors
+META 1024 12289 1792 118784 1282
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2.vectors
+META 1024 12289 1792 118784 1282
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5f-ref.vectors
+META 1024 12289 1792 118784 1282
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref.vectors
+META 1024 5119 1664 118784 1244
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/driver generate /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2.vectors
+META 1024 5119 1664 118784 1244
+PASS generate 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2.vectors
+META 1024 5119 1664 118784 1244
+PASS cross 100 cases
+$ /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-avx2/driver check /workspace/antrag_opt/bench/results/20261110T034534.469821Z/work/5s-ref.vectors
+META 1024 5119 1664 118784 1244
+PASS cross 100 cases

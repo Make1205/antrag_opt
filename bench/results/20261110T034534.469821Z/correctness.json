@@ -1,0 +1,112 @@
+[
+  {
+    "set": "1f",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "1s",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "2f",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "2s",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "3f",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "3s",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "4f",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "4s",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "5f",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  },
+  {
+    "set": "5s",
+    "cases": 100,
+    "equal": {
+      "pk": 100,
+      "sk": 0,
+      "sig": 100
+    },
+    "cross_verified_each_direction": 100,
+    "foreign_sk_verified_each_direction": 100
+  }
+]
